@@ -1,9 +1,8 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const auth = require('./authMiddleware');
 
 // Auth middleware with optional role check
-function auth(requiredRole) {
+function authentication(requiredRole) {
   return async function (req, res, next) {
     const token = req.header("Authorization");
     if (!token) return res.status(401).json({ msg: "No token" });
@@ -24,13 +23,4 @@ function auth(requiredRole) {
   };
 }
 
-// For admin-only routes:
-router.post('/', auth('admin'), postProducts);
-router.put('/:id', auth('admin'), updateProduct);
-router.delete('/:id', auth('admin'), deleteProduct);
-
-// For routes accessible to all authenticated users:
-router.get('/', auth(), getProducts);
-router.get('/:id', auth(), getProductById);
-
-module.exports = auth;
+module.exports = authentication;
