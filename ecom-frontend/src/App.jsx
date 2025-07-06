@@ -10,7 +10,7 @@ import CheckoutForm from "./components/CheckoutForm";
 import AdminDashboard from "./components/AdminDashboard";
 import Modal from "./components/Modal";
 
-const API = "http://localhost:5001"; // Change if your backend runs elsewhere
+const API = import.meta.env.VITE_API_URL;
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
